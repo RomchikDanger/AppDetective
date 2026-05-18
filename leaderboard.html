@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h1 class="mb-4 text-warning">Лидерборд расследований</h1>
+	{% for inv in investigations %}
+		<div class="card bg-secondary mb-3">
+			<div class="card-body">
+				<h4>{{ inv.title }}</h4>
+				<p>Лайков: {{ inv.likes|length }}</p>
+				<a href="/investigation/{{ inv.id }}" class="btn btn-warning">Открыть</a>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2>Админ-панель</h2>
+	{% for inv in investigations %}
+		<div class="card mb-2">
+			<div class="card-body text-dark">
+				{{ inv.title }}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

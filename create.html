@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="background-color: #f5f5f5; border-radius: 16px; padding: 24px;">
+	<form method="POST">
+		{{ form.hidden_tag() }}
+		<div class="mb-3">
+			{{ form.title.label(class="form-label") }}
+			{{ form.title(class="form-control") }}
+		</div>
+		{{ form.submit(class="btn btn-warning") }}
+	</form>
+</div>
+{% endblock %}

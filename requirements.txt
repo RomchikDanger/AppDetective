@@ -1,0 +1,9 @@
+
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-WTF
+WTForms
+Pillow
+requests
+python-dotenv

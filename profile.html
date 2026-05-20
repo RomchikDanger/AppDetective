@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card bg-secondary">
+    <div class="card-body">
+        <h2>{{ user.username }}</h2>
+        <p>EMAIL: {{ user.email or 'Не указан' }}</p>
+        <p>О СЕБЕ: {{ user.bio or 'Не указано' }}</p>
+
+        {% if current_user.id != user.id %}
+            <a href="{{ url_for('add_friend', friend_id=user.id) }}" class="btn btn-success">
+                Добавить в друзья
+            </a>
+        {% endif %}
+
+        <a href="{{ url_for('send_message', receiver_id=user.id) }}" class="btn btn-primary">
+            Отправить сообщение
+        </a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Назад</a>
+    </div>
+</div>
+{% endblock %}

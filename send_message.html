@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Отправить сообщение {{ receiver.username }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.content.label(class="form-label") }}
+        {{ form.content(class="form-control", rows=5, placeholder="Введите ваше сообщение...") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+    <a href="{{ url_for('user_profile', user_id=receiver.id) }}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

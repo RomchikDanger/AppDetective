@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Достижения</h2>
+<div class="row">
+    {% if all_achievements %}
+        {% for ach in all_achievements %}
+        <div class="col-md-4 mb-3">
+            <div class="card bg-secondary">
+                <div class="card-body">
+                    <h5>{{ ach.name }}</h5>
+                    <p>{{ ach.description }}</p>
+                    <small>Нужно очков: {{ ach.required_points }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">Нет доступных достижений</div>
+    {% endif %}
+</div>
+
+{% if user_achievements %}
+<h3 class="mt-4">Полученные достижения</h3>
+<ul>
+    {% for ua in user_achievements %}
+    <li>{{ ua.achievement.name }} ({{ ua.earned_at }})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

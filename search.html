@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Поиск: {{ query }}</h1>
+{% if investigations %}
+    {% for inv in investigations %}
+        <div>
+            <a href="{{ url_for('investigation', investigation_id=inv.id) }}">
+                {{ inv.title }}
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Ничего не найдено</p>
+{% endif %}
+{% endblock %}

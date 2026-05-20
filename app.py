@@ -20,7 +20,7 @@ from forms import (
     CommentForm,
 )
 
-# ========= БД И ИНИЦИАЛИЗАЦИЯ ПРОГРАММЫ =========
+# =========БД И ИНИЦИАЛИЗАЦИЯ ПРОГРАММЫ===========================
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret123'
@@ -33,7 +33,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-# ========== YANDEX GPT ==========
+# ==========YANDEX GPT=============================================
 FOLDER_ID = 'b1g3dgi3bl0mmhcqhma8'
 API_KEY = 'AQVNxzo7RmqB0ybPqx4eWRgG9sg4REeaBv1MtoIH'
 YANDEX_GPT_URL = (
@@ -51,7 +51,7 @@ def ping():
     return 'pong'
 
 
-# ========== ГЕНЕРАЦИЯ ИСТОРИИ ==========
+# ==========ГЕНЕРАЦИЯ ИСТОРИИ======================================
 def generate_story(image_path):
     filename = os.path.basename(image_path)
 
@@ -107,13 +107,13 @@ def generate_story(image_path):
         return f'Ошибка: {e}'
 
 
-# ========== ГЛАВНАЯ ==========
+# ==========ГЛАВНАЯ===============================================
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-# ========== РЕГИСТРАЦИЯ ==========
+# ==========РЕГИСТРАЦИЯ===========================================
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
@@ -150,7 +150,7 @@ def register():
     return render_template('register.html', form=form)
 
 
-# ========== ВХОД ==========
+# ========== ВХОД ==============================================
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -173,7 +173,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-# ========== ВЫХОД ==========
+# ==========ВЫХОД===============================================
 @app.route('/logout')
 @login_required
 def logout():
@@ -182,7 +182,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-# ========== ЛИЧНЫЙ КАБИНЕТ ==========
+# ==========ЛИЧНЫЙ КАБИНЕТ=======================================
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -196,7 +196,7 @@ def dashboard():
     )
 
 
-# ========== СОЗДАНИЕ ДЕЛА ==========
+# ==========СОЗДАНИЕ ДЕЛА========================================
 @app.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_investigation():
@@ -222,7 +222,7 @@ def create_investigation():
     return render_template('create.html', form=form)
 
 
-# ========== СТРАНИЦА ДЕЛА ==========
+# ==========СТРАНИЦА ДЕЛА========================================
 @app.route('/investigation/<int:investigation_id>', methods=['GET', 'POST'])
 @login_required
 def investigation(investigation_id):
@@ -259,12 +259,8 @@ def investigation(investigation_id):
                 db.session.commit()
 
                 flash('Улика добавлена')
-                return redirect(
-                    url_for(
-                        'investigation',
-                        investigation_id=investigation.id,
-                    )
-                )
+                return redirect(url_for('investigation',
+                        investigation_id=investigation.id,))
 
             flash('Можно загружать только картинки')
 
@@ -281,7 +277,7 @@ def investigation(investigation_id):
     )
 
 
-# ========== ЛАЙК ==========
+# ==========ЛАЙК=================================================
 @app.route('/like/<int:investigation_id>')
 @login_required
 def like_investigation(investigation_id):
@@ -301,12 +297,10 @@ def like_investigation(investigation_id):
     else:
         flash('Вы уже поставили лайк')
 
-    return redirect(
-        url_for('investigation', investigation_id=investigation_id)
-    )
+    return redirect(url_for('investigation', investigation_id=investigation_id))
 
 
-# ========== КОММЕНТАРИИ ==========
+# ==========КОММЕНТАРИИ==========================================
 @app.route('/comment/<int:investigation_id>', methods=['POST'])
 @login_required
 def add_comment(investigation_id):
@@ -315,9 +309,7 @@ def add_comment(investigation_id):
     if form.validate_on_submit():
         if len(form.text.data) < 2:
             flash('Комментарий слишком короткий')
-            return redirect(
-                url_for('investigation', investigation_id=investigation_id)
-            )
+            return redirect(url_for('investigation', investigation_id=investigation_id))
 
         comment = Comment(
             text=form.text.data,
@@ -327,41 +319,30 @@ def add_comment(investigation_id):
 
         db.session.add(comment)
         db.session.commit()
-
+        
         flash('Комментарий добавлен')
-
-    return redirect(
-        url_for('investigation', investigation_id=investigation_id)
-    )
+    return redirect(url_for('investigation', investigation_id=investigation_id))
 
 
-# ========== ТОП ДЕЛ ==========
+# ==========ТОП ДЕЛ==============================================
 @app.route('/leaderboard')
 def leaderboard():
     investigations = Investigation.query.all()
     investigations.sort(key=lambda x: len(x.likes), reverse=True)
 
-    return render_template(
-        'leaderboard.html',
-        investigations=investigations,
-    )
+    return render_template('leaderboard.html', investigations=investigations,)
 
 
-# ========== АДМИНКА ==========
+# ==========АДМИНКА==============================================
 @app.route('/admin')
 def admin():
     investigations = Investigation.query.all()
     users = User.query.all()
 
-    return render_template(
-        'admin.html',
-        investigations=investigations,
-        users=users,
-    )
+    return render_template('admin.html', investigations=investigations, users=users,)
 
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-
     app.run(debug=True)

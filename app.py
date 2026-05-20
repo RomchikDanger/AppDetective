@@ -190,10 +190,7 @@ def dashboard():
         user_id=current_user.id
     ).all()
 
-    return render_template(
-        'dashboard.html',
-        investigations=investigations,
-    )
+    return render_template('dashboard.html', investigations=investigations)
 
 
 # ==========СОЗДАНИЕ ДЕЛА========================================
@@ -218,7 +215,6 @@ def create_investigation():
 
         flash('Дело создано')
         return redirect(url_for('dashboard'))
-
     return render_template('create.html', form=form)
 
 
@@ -330,7 +326,7 @@ def leaderboard():
     investigations = Investigation.query.all()
     investigations.sort(key=lambda x: len(x.likes), reverse=True)
 
-    return render_template('leaderboard.html', investigations=investigations,)
+    return render_template('leaderboard.html', investigations=investigations)
 
 
 # ==========АДМИНКА==============================================
@@ -339,7 +335,7 @@ def admin():
     investigations = Investigation.query.all()
     users = User.query.all()
 
-    return render_template('admin.html', investigations=investigations, users=users,)
+    return render_template('admin.html', investigations=investigations, users=users)
 
 
 if __name__ == '__main__':

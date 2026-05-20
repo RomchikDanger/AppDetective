@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Отправленные сообщения</h2>
+{% if messages %}
+    {% for msg in messages %}
+    <div class="card mb-2 bg-secondary">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <strong>Кому: {{ msg.receiver.username }}</strong>
+                <small>{{ msg.created_at }}</small>
+            </div>
+            <p class="mt-2">{{ msg.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info">Нет отправленных сообщений</div>
+{% endif %}
+<a href="{{ url_for('inbox') }}" class="btn btn-secondary btn-sm">← Назад</a>
+{% endblock %}

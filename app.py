@@ -1,7 +1,6 @@
 import os
 import requests
 from datetime import datetime
-
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_login import (
     LoginManager,
@@ -12,7 +11,6 @@ from flask_login import (
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-
 from models import db, User, Investigation, Evidence, Like, Comment
 from forms import (
     RegisterForm,

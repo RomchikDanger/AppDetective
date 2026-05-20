@@ -9,7 +9,7 @@ from wtforms import (
 from wtforms.validators import DataRequired, Length
 
 
-# ========= ФОРМА РЕГИСТРАЦИИ =========
+# =========ФОРМА РЕГИСТРАЦИИ====================================
 class RegisterForm(FlaskForm):
     username = StringField(
         'Username',
@@ -22,7 +22,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Register')
 
 
-# ========= ФОРМА ВХОДА =========
+# =========ФОРМА ВХОДА===========================================
 class LoginForm(FlaskForm):
     username = StringField(
         'Username',
@@ -35,7 +35,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-# ========= ФОРМА СОЗДАНИЯ ДЕЛА =========
+# =========ФОРМА СОЗДАНИЯ ДЕЛА===================================
 class InvestigationForm(FlaskForm):
     title = StringField(
         'Название дела',
@@ -44,7 +44,7 @@ class InvestigationForm(FlaskForm):
     submit = SubmitField('Создать дело')
 
 
-# ========= ФОРМА ЗАГРУЗКИ УЛИКИ =========
+# =========ФОРМА ЗАГРУЗКИ УЛИКИ==================================
 class EvidenceForm(FlaskForm):
     photo = FileField(
         'Фото-улика',
@@ -53,7 +53,7 @@ class EvidenceForm(FlaskForm):
     submit = SubmitField('Загрузить улику')
 
 
-# ========= ФОРМА КОММЕНТАРИЯ =========
+# =========ФОРМА КОММЕНТАРИЯ====================================
 class CommentForm(FlaskForm):
     text = TextAreaField(
         'Комментарий',

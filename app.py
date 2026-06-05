@@ -47,10 +47,10 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # ==========YANDEX GPT==========
-FOLDER_ID = 'b1g3dgi3bl0mmhcqhma8'
-API_KEY = 'AQVNxzo7RmqB0ybPqx4eWRgG9sg4REeaBv1MtoIH'
-YANDEX_GPT_URL = ('https://llm.api.cloud.yandex.net/'
-                  'foundationModels/v1/completion')
+FOLDER_ID = '...'
+API_KEY = '...'
+YANDEX_GPT_URL = ('...'
+                  '...')
 
 
 @login_manager.user_loader
